@@ -180,19 +180,24 @@
     const maxScroll = scrollContainer.offsetHeight - window.innerHeight;
     const progress = Math.min(Math.max(scrollTop / maxScroll, 0), 1);
 
-    // --- PHASE 1: Background Fade & Scale (0% to 30% of scroll) ---
-    const bgProgress = Math.min(progress / 0.3, 1);
-    bgArt.style.opacity = bgProgress;
-    bgArt.style.transform = `scale(${1.1 - (bgProgress * 0.1)})`; // Scales from 1.1 down to 1.0
+    // Dynamic speed based on screen width
+    const isMobile = window.innerWidth < 768;
+    const scrollTrigger = isMobile ? 0.15 : 0.3; // Start earlier on mobile
 
-    // --- PHASE 2: Subject Entry (Starts after 30% scroll) ---
-    if (progress > 0.3) {
-        // Calculate progress specifically for the girl (0 to 1)
-        const subjectProgress = (progress - 0.3) / 0.7; 
+    // PHASE 1: Background
+    const bgProgress = Math.min(progress / scrollTrigger, 1);
+    bgArt.style.opacity = bgProgress;
+    bgArt.style.transform = `scale(${1.1 - (bgProgress * 0.1)})`;
+
+    // PHASE 2: Subject
+    if (progress > scrollTrigger) {
+        const subjectProgress = (progress - scrollTrigger) / (1 - scrollTrigger);
+        subject.style.opacity = Math.min(subjectProgress * 3, 1);
         
-        // Subject fades in quickly and slides in
-        subject.style.opacity = Math.min(subjectProgress * 2, 1);
-        const moveX = 100 - (subjectProgress * 115); 
+        // On mobile, she stops a bit further right so she doesn't hide text
+        const stopPoint = isMobile ? 130 : 115; 
+        const moveX = 100 - (subjectProgress * stopPoint);
+        
         subject.style.transform = `translateX(${moveX}%)`;
     } else {
         subject.style.opacity = 0;
