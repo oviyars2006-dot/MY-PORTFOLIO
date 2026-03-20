@@ -1,0 +1,150 @@
+/* 1. Global Reset & Typography */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background-color: #ffc2d1; 
+    color: #1a1a1a;
+    line-height: 1.5;
+    overflow-x: hidden;
+}
+
+/* 2. Hero & Animation Layers */
+.sticky-viewport {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Layer 1: UPDATED for Fade-In Pop Effect */
+.bg-art-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0;             /* Start hidden */
+    transform: scale(1.1);  /* Start slightly zoomed for the 'pop' effect */
+    will-change: transform, opacity;
+}
+
+.bg-art-layer img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Layer 2: UPDATED for Staggered Subject Entry */
+#subject-container {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 95vh; 
+    width: auto;
+    z-index: 5;
+    pointer-events: none;
+    display: flex;
+    align-items: flex-end;
+    transform: translateX(100%); 
+    opacity: 0;             /* Start hidden until background establishes */
+    will-change: transform, opacity;
+}
+
+#subject-container img {
+    height: 100%;    
+    width: auto;
+    display: block;
+    object-fit: contain;
+}
+
+/* 3. The "Sheet" Transition (About & Works) */
+.content-wrapper, .about-section {
+    position: relative;
+    z-index: 20;
+    background-color: #ffffff !important; 
+    color: #1a1a1a !important;            
+    box-shadow: 0 -30px 60px rgba(0, 0, 0, 0.1);
+    border-radius: 60px 60px 0 0;
+    margin-top: -5vh; 
+}
+
+/* 4. About Me Specifics */
+.outline-text-dark {
+    color: #ffffff;
+    -webkit-text-stroke: 1.5px #1a1a1a;
+}
+
+.sticky-side {
+    position: sticky;
+    top: 15vh;
+}
+
+.about-content p {
+    color: #374151;
+}
+
+/* 5. Works / Project Gallery */
+.outline-text {
+    font-size: clamp(4rem, 12vw, 10rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    color: transparent;
+    -webkit-text-stroke: 2px #fec5bb;
+    letter-spacing: -0.02em;
+    display: block;
+    margin-bottom: 2rem;
+}
+
+/* 6. Script Text Formatting */
+.script-text {
+    font-family: 'Space Mono', monospace;
+    line-height: 1.8;
+    color: #1f2937;
+    background: #f9fafb;
+    padding: 2.5rem;
+    border-radius: 1.5rem;
+}
+
+.hook-tag {
+    color: #ff4d6d;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+/* 7. Skill Pills */
+.skill-pill {
+    padding: 0.5rem 1.25rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #4b5563;
+    transition: all 0.3s ease;
+}
+
+.skill-pill:hover {
+    background-color: #ff4d6d;
+    color: white;
+    border-color: #ff4d6d;
+}
+
+/* Responsive Fixes */
+@media (max-width: 768px) {
+    #subject-container { height: 75vh; }
+    .content-wrapper, .about-section { border-radius: 30px 30px 0 0; }
+    .outline-text { font-size: 4rem; }
+}
